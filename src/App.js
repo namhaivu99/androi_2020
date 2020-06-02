@@ -6,6 +6,7 @@ import Message from './components/Message/Message'
 import ChatView from './components/Message/ChatView'
 import Search from './components/Search/Search'
 import ProductView from './components/ProductView/ProductView'
+import ListProductView from './components/ProductView/ListProductView'
 import Cart from './components/Cart/Cart'
 import AddProduct from './components/Main/Shop/AddProduct'
 const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ export default class App extends Component {
         <Stack.Screen name="ChatView" component={ChatView} options={{ headerShown:false}}/>
         <Stack.Screen name="Search" component={Search} options={{ headerShown:false}}/>
         <Stack.Screen name="ProductView" component={ProductView} options={{ headerShown:false}}/>
+        <Stack.Screen name="ListProductView" component={ListProductView} options={{ headerShown:false}}/>
         <Stack.Screen name="Cart" component={Cart} options={{ headerShown:false}}/>
         <Stack.Screen name="AddProduct" component={AddProduct} options={{ headerShown:false}}/>
       </Stack.Navigator>

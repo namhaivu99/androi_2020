@@ -3,8 +3,9 @@ import {
   Text, View, Image, StyleSheet, Dimensions, TouchableOpacity, ScrollView,
   FlatList
 } from 'react-native';
-import image from '../../../../media/appIcon/banner.jpg';
+//import image from '../../../../media/appIcon/banner.jpg';
 import { useNavigation } from '@react-navigation/native';
+
 const { height, width } = Dimensions.get('window')
 export default function (props) {
   const navigation = useNavigation();
@@ -15,24 +16,30 @@ class TopProducts extends Component {
   constructor(props) {
     super(props);
     // Don't call this.setState() here!
-    this.state = [];
+      this.state = {
+      listProducts:null
+    };
   //  this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-  /*  fetch('http://192.168.13.2:8080/all')
+    
+  //  console.log(csrfToken);
+    fetch('http://192.168.43.196:8080/all-product')
       .then((response) => response.json())
       .then((json) => {
+        this.setState({listProducts:json})
       //  this.props.state = json;
-        console.log(json);
+     //   console.log(this.state.listProducts);
       })
       .catch((error) => {
         console.error(error);
-      });*/
+      });
 
   }
   render() {
     const { navigation } = this.props;
     const { wrapper, imageStyle, textStyle, touchableOpacityStyle } = styles;
+    let listProducts=this.state.listProducts;
     return (
       <View style={wrapper}>
         <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -43,17 +50,17 @@ class TopProducts extends Component {
         </View >
         <View style={{ flex: 6 }}>
           <FlatList horizontal={true}
-
+            data={listProducts}
             renderItem={({ item }) =>
               <TouchableOpacity style={touchableOpacityStyle}
-                onPress={() => navigation.navigate('ProductView', item)}>
+                onPress={() => navigation.navigate('ProductView', {product:item})}>
                 <View style={{ flex: 1 }}>
                   <View style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={image} style={imageStyle} />
+                    <Image source ={{uri: "http://192.168.43.196:8080/image/"+item.image}} style={imageStyle} />
                   </View>
                   <View style={{ flex: 2, justifyContent: 'space-around', paddingTop: 3, paddingLeft: 10 }}>
-                    <Text style={{ fontSize: 17 }}>Tên sản phẩm </Text>
-                    <Text style={{ fontSize: 17 }}>Đã bán </Text>
+                    <Text style={{ fontSize: 17 }}>{item.name} </Text>
+                    <Text style={{ fontSize: 17 }}>{item.sell_price} </Text>
                   </View>
                 </View>
               </TouchableOpacity>

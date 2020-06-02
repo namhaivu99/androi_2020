@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View,Image } from 'react-native';
+import { Text, View,Image, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import icHome from '../../media/appIcon/home.png';
@@ -13,7 +13,10 @@ import icAccount0 from '../../media/appIcon/user0.png';
 import Authentication from '../Authentication/Authentication';
 import Shop from './Shop/Shop'
 import Home from './Home/Home'
+import Cart from '../Cart/Cart'
+import { Menu } from './Menu';
 
+import Drawer from 'react-native-drawer'
 function Profile() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -68,10 +71,10 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Notification"
-        component={Profile}
+        name="Cart"
+        component={Cart}
         options={{
-          tabBarLabel: 'Notification',
+          tabBarLabel: 'Carts',
           tabBarIcon : ({focused, tintColor}) => {
                 return  <Image source={focused ? icMail:icMail0} style={{height:25, width:25}} color={tintColor}/>
             }
@@ -92,9 +95,22 @@ function MyTabs() {
 }
 
 export default class Main extends Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+          list_product:[]
+    }
+
+  }
+  componentDidMount(){  
+  }
   render(){
     return (
+      
         <MyTabs />
+        
+     
     );
   }
 }
